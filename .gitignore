@@ -133,3 +133,6 @@ constants.py
 
 # video files
 *.mp4
+
+#mac files
+.DS_Store
