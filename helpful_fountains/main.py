@@ -8,9 +8,9 @@ Created: 2023-01-19
 
 # Import libraries
 import argparse
-import requests
 from typing import List
 from typing import Dict
+import requests
 import openai
 import bs4
 import constants
@@ -28,6 +28,23 @@ SEARCH_QUESTION = args.question
 def get_wikipedia_article_urls(
     search_term: str, search_key: str, search_id: str
 ) -> List[str]:
+    """
+    This function takes a search term, google search api key, and google search engine id and returns a list of wikipedia article urls
+    
+    Parameters
+    ----------
+    search_term : str
+        The search term
+    search_key : str
+        The google search api key
+    search_id : str
+        The google search engine id
+        
+    Returns
+    -------
+    article_urls : list
+        A list of wikipedia article urls
+    """
     # using the first page
     page = 1
     # constructing the URL
@@ -56,12 +73,12 @@ def get_wikipedia_article_urls(
 def get_wikipedia_text(url: str, paragraph_number: int = 3) -> str:
     """
     This function takes a wikipedia url and returns the text of the first 3 paragraphs
-    
+
     Parameters
     ----------
     url : str
         The wikipedia url
-    
+
     Returns
     -------
     paras : list
@@ -84,7 +101,7 @@ def get_wikipedia_text(url: str, paragraph_number: int = 3) -> str:
 def create_prompt(search_question, content, link):
     """
     This function takes a search question, the content of a wikipedia article, and the link to the wikipedia article and returns a prompt for openai's gpt-3 api
-    
+   
     Parameters
     ----------
     search_question : str
@@ -93,7 +110,7 @@ def create_prompt(search_question, content, link):
         The content of the wikipedia article
     link : str
         The link to the wikipedia article
-    
+   
     Returns
     -------
     prompt : str
@@ -155,10 +172,10 @@ if __name__ == "__main__":
     )
 
     # Get the wikipedia text
-    wikipedia_text = get_wikipedia_text(wikipedia_article_urls[0])
+    WIKIPEDIA_TEXT = get_wikipedia_text(wikipedia_article_urls[0])
 
     # Create the prompt
-    prompt = create_prompt(SEARCH_QUESTION, wikipedia_text, wikipedia_article_urls[0])
+    prompt = create_prompt(SEARCH_QUESTION, WIKIPEDIA_TEXT, wikipedia_article_urls[0])
 
     # Create the response
     response = create_response(prompt)
@@ -167,9 +184,8 @@ if __name__ == "__main__":
         print("--------------------")
         print("Question: " + "\n\n" + SEARCH_QUESTION)
         print("--------------------")
-        print("Corpus: " + "\n\n" + wikipedia_text)
+        print("Corpus: " + "\n\n" + WIKIPEDIA_TEXT)
         print("--------------------")
         print("Response: ")
 
     print(response.choices[0]["text"])
-
