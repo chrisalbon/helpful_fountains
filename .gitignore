@@ -130,3 +130,6 @@ dmypy.json
 
 # ignore constants.py
 constants.py
+
+# video files
+*.mp4
