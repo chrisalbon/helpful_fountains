@@ -15,15 +15,6 @@ import openai
 import bs4
 import constants
 
-parser = argparse.ArgumentParser()
-parser.add_argument("question", help="The question from the user", type=str)
-parser.add_argument("--debug", help="Run in debug mode", action="store_true")
-
-args = parser.parse_args()
-
-
-SEARCH_QUESTION = args.question
-
 
 def get_wikipedia_article_urls(
     search_term: str, search_key: str, search_id: str
@@ -164,6 +155,16 @@ def create_response(prompt: str) -> Dict:
 
 
 if __name__ == "__main__":
+
+    # Create the parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument("question", help="The question from the user", type=str)
+    parser.add_argument("--debug", help="Run in debug mode", action="store_true")
+
+    args = parser.parse_args()
+
+    SEARCH_QUESTION = args.question
+
     # Get the wikipedia article urls
     wikipedia_article_urls = get_wikipedia_article_urls(
         SEARCH_QUESTION,
