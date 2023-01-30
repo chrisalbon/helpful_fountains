@@ -136,3 +136,6 @@ constants.py
 
 #mac files
 .DS_Store
+
+#macos
+.DS_Store?
